@@ -493,6 +493,12 @@ def scores(pred, truth):
     return result, daily
 
 
+def metric_summary(result, n_days):
+    """内部の評価結果を共通の metrics.json 形式へ変換する。"""
+    return dict(n_days=n_days, combined_nrmse=result['combined'],
+                nrmse_diag=result['nrmse_diag'], nrmse_offdiag=result['nrmse_off'])
+
+
 def better(candidates, field):
     best = None
     for c in candidates:
@@ -705,13 +711,16 @@ def validate(log=None):
         ds.append(dict(id='D-H', groups=GROUPS, fixed=False, score=hs['overall']))
         ns.append(dict(id='N-H', groups=GROUPS, fixed=False, score=hs['overall']))
         dr, nr = candidate_rows(ds, 'nrmse_diag'), candidate_rows(ns, 'nrmse_off')
-        overall = dict(n_days=len(CV), combined_nrmse=sc['overall']['combined'],
-                       nrmse_diag=sc['overall']['nrmse_diag'], nrmse_offdiag=sc['overall']['nrmse_off'])
+        overall = metric_summary(sc['overall'], len(CV))
+        validation = {
+            'jan': metric_summary(sc['jan'], sum(str(day).startswith('202401') for day in CV)),
+            'apr': metric_summary(sc['apr'], sum(str(day).startswith('202404') for day in CV)),
+        }
         metrics = dict(experiment='EXP03', date=dt.datetime.now().astimezone().isoformat(timespec='minutes'),
             compared_to='EXP02', status='評価済み',
             config=dict(settings=SETTINGS, catboost=CAT_PARAMS, selected=selected,
              observed_days=int(data.observed.sum()), candidate_pairs=len(data.pairs)),
-            results=dict(overall=overall, validation={k: sc[k] for k in ['jan', 'apr']},
+            results=dict(overall=overall, validation=validation,
                          diag_candidates=dr, off_candidates=nr))
         write_metrics(EXP / 'metrics.json', metrics)
         log.stage('validate-artifacts', '誤差マップ・市町誤差・比較図')

@@ -12,18 +12,16 @@
     },
     "validation": {
       "jan": {
-        "rmse_diag": 2.402548,
-        "rmse_off": 0.005659,
+        "n_days": 7,
+        "combined_nrmse": 0.205988,
         "nrmse_diag": 0.090423,
-        "nrmse_off": 0.321553,
-        "combined": 0.205988
+        "nrmse_offdiag": 0.321553
       },
       "apr": {
-        "rmse_diag": 2.138771,
-        "rmse_off": 0.005498,
+        "n_days": 7,
+        "combined_nrmse": 0.196449,
         "nrmse_diag": 0.080496,
-        "nrmse_off": 0.312402,
-        "combined": 0.196449
+        "nrmse_offdiag": 0.312402
       }
     },
     "diag_candidates": [

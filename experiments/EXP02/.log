@@ -1,41 +1,6 @@
 # EXP02 execution history
 
 ================================================================================
-2026-08-31 05:10:13 | EXP02 | validate | SUCCESS
-command: python3 src/EXP02_run.py --validate
---------------------------------------------------------------------------------
-stages:
-  - load: 観測データとEXP01基準予測を準備 (15.4s)
-  - calibrate: A窓2種の出現確率を校正 (0.5s)
-  - compare: 4候補を評価して採用候補を選択 (1.1s)
-  - artifacts: 誤差図、確率校正図、metricsを更新 (0.7s)
-results:
-  - selected: full_mean
-  - combined_nrmse: 0.2207
-  - full_median: 0.2212
-  - full_mean: 0.2207
-  - post_quake_median: 0.2355
-  - post_quake_mean: 0.2363
-duration: 17.8s
-
-================================================================================
-2026-08-31 05:10:41 | EXP02 | submit | SUCCESS
-command: python3 src/EXP02_run.py --submit
---------------------------------------------------------------------------------
-stages:
-  - load: 採用候補の提出用テンプレートを準備 (10.2s)
-  - predict: 提出58日を予測 (0.8s)
-  - check: 提出形式を検査 (3.3s)
-  - figure: 日次推移図を生成 (4.8s)
-results:
-  - selected: full_mean
-  - days: 58
-  - check: PASS
-artifacts:
-  - experiments/EXP02/outputs/submission.tsv
-duration: 19.2s
-
-================================================================================
 2026-09-21 00:31:23 | EXP02 | run | SUCCESS
 command: python3 src/EXP02_run.py
 --------------------------------------------------------------------------------

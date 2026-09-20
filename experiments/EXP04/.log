@@ -1,40 +1,6 @@
 # EXP04 execution history
 
 ================================================================================
-2026-09-14 12:34:23 | EXP04 | validate | SUCCESS
-command: python3 src/EXP04_run.py --validate
---------------------------------------------------------------------------------
-stages:
-  - load: EXP03参照設定・入力を確認し、CVを分離 (12.9s)
-  - fit-diag: 対角モデルD5を推定 (9.2s)
-  - fit-forward: 出発側の総量・配分を推定 (14.2s)
-  - fit-reverse: 到着側の総量・配分を推定 (14.6s)
-  - compare: N-F、N-R、N-Bを評価 (0.5s)
-  - artifacts: 地域誤差、比較図、metricsを更新 (5.7s)
-results:
-  - selected: N-B
-  - combined_nrmse: 0.2008
-  - nrmse_diag: 0.0855
-  - nrmse_offdiag: 0.3162
-duration: 57.1s
-
-================================================================================
-2026-09-14 12:36:43 | EXP04 | submit | SUCCESS
-command: python3 src/EXP04_run.py --submit
---------------------------------------------------------------------------------
-stages:
-  - load: 検証時の採用設定を確認 (13.4s)
-  - fit: 採用モデルを全観測日で再学習 (38.3s)
-  - artifacts: 提出TSV、公式validator、日次推移図 (16.6s)
-results:
-  - selected: N-B
-  - days: 58
-  - validator: PASS
-artifacts:
-  - experiments/EXP04/outputs/submission.tsv
-duration: 68.4s
-
-================================================================================
 2026-09-21 00:42:20 | EXP04 | run | FAILED
 command: python3 src/EXP04_run.py
 --------------------------------------------------------------------------------
