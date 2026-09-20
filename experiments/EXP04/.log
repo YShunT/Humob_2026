@@ -1,0 +1,88 @@
+# EXP04 execution history
+
+================================================================================
+2026-09-14 12:34:23 | EXP04 | validate | SUCCESS
+command: python3 src/EXP04_run.py --validate
+--------------------------------------------------------------------------------
+stages:
+  - load: EXP03参照設定・入力を確認し、CVを分離 (12.9s)
+  - fit-diag: 対角モデルD5を推定 (9.2s)
+  - fit-forward: 出発側の総量・配分を推定 (14.2s)
+  - fit-reverse: 到着側の総量・配分を推定 (14.6s)
+  - compare: N-F、N-R、N-Bを評価 (0.5s)
+  - artifacts: 地域誤差、比較図、metricsを更新 (5.7s)
+results:
+  - selected: N-B
+  - combined_nrmse: 0.2008
+  - nrmse_diag: 0.0855
+  - nrmse_offdiag: 0.3162
+duration: 57.1s
+
+================================================================================
+2026-09-14 12:36:43 | EXP04 | submit | SUCCESS
+command: python3 src/EXP04_run.py --submit
+--------------------------------------------------------------------------------
+stages:
+  - load: 検証時の採用設定を確認 (13.4s)
+  - fit: 採用モデルを全観測日で再学習 (38.3s)
+  - artifacts: 提出TSV、公式validator、日次推移図 (16.6s)
+results:
+  - selected: N-B
+  - days: 58
+  - validator: PASS
+artifacts:
+  - experiments/EXP04/outputs/submission.tsv
+duration: 68.4s
+
+================================================================================
+2026-09-21 00:42:20 | EXP04 | run | FAILED
+command: python3 src/EXP04_run.py
+--------------------------------------------------------------------------------
+stages:
+  - self-test: 数値実装の不変条件を検査 (0.0s, 00:42:20)
+  - validate-load: 参照設定・入力確認、CV14日を除外 (13.2s, 00:42:20)
+  - validate-D5: stage0-D5: 状態空間モデルを推定 (9.4s, 00:42:34)
+  - validate-F-total: stage1-F-total: 状態空間モデルを推定 (7.8s, 00:42:43)
+  - validate-F-share: stage1-F-share: 状態空間モデルを推定 (7.2s, 00:42:51)
+  - validate-R-total: stage2-R-total: 状態空間モデルを推定 (7.8s, 00:42:58)
+  - validate-R-share: stage2-R-share: 状態空間モデルを推定 (7.2s, 00:43:06)
+  - validate-score: 順方向・逆方向・固定1:1結合の公式評価 (FAIL, 00:43:13)
+error: ValueError: EXP03 baseline reproduction failed: {'combined_nrmse': 3.563962422126199e-07, 'nrmse_diag': -4.875240508656065e-07, 'nrmse_offdiag': 2.0031653530372395e-07}
+duration: 53.0s
+
+================================================================================
+2026-09-21 00:43:47 | EXP04 | run | SUCCESS
+command: python3 src/EXP04_run.py
+--------------------------------------------------------------------------------
+stages:
+  - self-test: 数値実装の不変条件を検査 (0.0s, 00:43:47)
+  - validate-load: 参照設定・入力確認、CV14日を除外 (13.1s, 00:43:47)
+  - validate-D5: stage0-D5: 状態空間モデルを推定 (9.1s, 00:44:00)
+  - validate-F-total: stage1-F-total: 状態空間モデルを推定 (7.6s, 00:44:09)
+  - validate-F-share: stage1-F-share: 状態空間モデルを推定 (7.0s, 00:44:17)
+  - validate-R-total: stage2-R-total: 状態空間モデルを推定 (7.6s, 00:44:24)
+  - validate-R-share: stage2-R-share: 状態空間モデルを推定 (7.1s, 00:44:31)
+  - validate-score: 順方向・逆方向・固定1:1結合の公式評価 (0.5s, 00:44:38)
+  - validate-artifacts: 採用候補の図・地域誤差・metricsを保存 (0.9s, 00:44:39)
+  - submit-check: 検証時の採用設定を確認 (13.5s, 00:44:40)
+  - submit-D5: stage0-D5: 状態空間モデルを推定 (9.1s, 00:44:53)
+  - submit-F-total: stage1-F-total: 状態空間モデルを推定 (7.6s, 00:45:02)
+  - submit-F-share: stage1-F-share: 状態空間モデルを推定 (7.2s, 00:45:10)
+  - submit-R-total: stage2-R-total: 状態空間モデルを推定 (7.6s, 00:45:17)
+  - submit-R-share: stage2-R-share: 状態空間モデルを推定 (7.6s, 00:45:25)
+  - submit-write: 提出58日復元・形式検査・日次推移 (16.2s, 00:45:32)
+results:
+  - selected: N-B
+  - n_days: 14
+  - combined_nrmse: 0.2008
+  - nrmse_diag: 0.0855
+  - nrmse_offdiag: 0.3162
+  - selected: N-B
+  - days: 58
+  - validator: Validation passed!
+artifacts:
+  - experiments/EXP04/metrics.json
+  - experiments/EXP04/outputs/candidate_municipality_errors.csv
+  - experiments/EXP04/figures/
+  - experiments/EXP04/outputs/submission.tsv
+duration: 121.8s

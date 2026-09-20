@@ -1,0 +1,203 @@
+{
+  "experiment": "EXP01",
+  "date": "2026-09-21T00:31+09:00",
+  "status": "評価済み",
+  "compared_to": "EXP00",
+  "results": {
+    "overall": {
+      "n_days": 14,
+      "combined_nrmse": 0.2594,
+      "nrmse_diag": 0.1077,
+      "nrmse_offdiag": 0.411,
+      "vs_zero": 0.2701
+    },
+    "validation": {
+      "jan": {
+        "n_days": 7,
+        "combined_nrmse": 0.2619,
+        "nrmse_diag": 0.113,
+        "nrmse_offdiag": 0.4107,
+        "vs_zero": 0.2833
+      },
+      "apr": {
+        "n_days": 7,
+        "combined_nrmse": 0.2568,
+        "nrmse_diag": 0.1024,
+        "nrmse_offdiag": 0.4113,
+        "vs_zero": 0.2579
+      }
+    },
+    "groups": {
+      "weekday": {
+        "n_days": 10,
+        "combined_nrmse": 0.2614,
+        "nrmse_diag": 0.1085,
+        "nrmse_offdiag": 0.4142,
+        "vs_zero": 0.2625
+      },
+      "weekend": {
+        "n_days": 4,
+        "combined_nrmse": 0.2543,
+        "nrmse_diag": 0.1056,
+        "nrmse_offdiag": 0.403,
+        "vs_zero": 0.2918
+      }
+    },
+    "weekdays": {
+      "0_月": {
+        "n_days": 2,
+        "combined_nrmse": 0.2555,
+        "nrmse_diag": 0.1046,
+        "nrmse_offdiag": 0.4064,
+        "vs_zero": 0.2589
+      },
+      "1_火": {
+        "n_days": 2,
+        "combined_nrmse": 0.2582,
+        "nrmse_diag": 0.1001,
+        "nrmse_offdiag": 0.4163,
+        "vs_zero": 0.2563
+      },
+      "2_水": {
+        "n_days": 2,
+        "combined_nrmse": 0.2463,
+        "nrmse_diag": 0.1081,
+        "nrmse_offdiag": 0.3845,
+        "vs_zero": 0.246
+      },
+      "3_木": {
+        "n_days": 2,
+        "combined_nrmse": 0.2883,
+        "nrmse_diag": 0.1263,
+        "nrmse_offdiag": 0.4503,
+        "vs_zero": 0.2913
+      },
+      "4_金": {
+        "n_days": 2,
+        "combined_nrmse": 0.2586,
+        "nrmse_diag": 0.1036,
+        "nrmse_offdiag": 0.4136,
+        "vs_zero": 0.2603
+      },
+      "5_土": {
+        "n_days": 2,
+        "combined_nrmse": 0.2626,
+        "nrmse_diag": 0.1046,
+        "nrmse_offdiag": 0.4206,
+        "vs_zero": 0.2937
+      },
+      "6_日": {
+        "n_days": 2,
+        "combined_nrmse": 0.2461,
+        "nrmse_diag": 0.1067,
+        "nrmse_offdiag": 0.3854,
+        "vs_zero": 0.2897
+      }
+    },
+    "error_breakdown": {
+      "diagonal": {
+        "hit_pct": 96.966,
+        "miss_pct": 0.834,
+        "extra_pct": 2.2,
+        "observed_pairs_per_day": 381.857,
+        "predicted_pairs_per_day": 441.571
+      },
+      "offdiagonal": {
+        "hit_pct": 40.05,
+        "miss_pct": 21.953,
+        "extra_pct": 37.997,
+        "observed_pairs_per_day": 118.429,
+        "predicted_pairs_per_day": 155.571
+      }
+    }
+  },
+  "config": {
+    "method": "weekday-matched per-pair linear interpolation",
+    "hyperparameters": null,
+    "validation_windows": {
+      "jan": [
+        20240125,
+        20240131
+      ],
+      "apr": [
+        20240401,
+        20240407
+      ]
+    },
+    "validation_anchors": {
+      "0_月": {
+        "anchor_a": 20240122,
+        "anchor_b": 20240415,
+        "span_days": 84
+      },
+      "1_火": {
+        "anchor_a": 20240116,
+        "anchor_b": 20240409,
+        "span_days": 84
+      },
+      "2_水": {
+        "anchor_a": 20240117,
+        "anchor_b": 20240410,
+        "span_days": 84
+      },
+      "3_木": {
+        "anchor_a": 20240111,
+        "anchor_b": 20240411,
+        "span_days": 91
+      },
+      "4_金": {
+        "anchor_a": 20240119,
+        "anchor_b": 20240412,
+        "span_days": 84
+      },
+      "5_土": {
+        "anchor_a": 20240120,
+        "anchor_b": 20240413,
+        "span_days": 84
+      },
+      "6_日": {
+        "anchor_a": 20240121,
+        "anchor_b": 20240414,
+        "span_days": 84
+      }
+    },
+    "submission_anchors": {
+      "0_月": {
+        "anchor_a": 20240129,
+        "anchor_b": 20240401,
+        "span_days": 63
+      },
+      "1_火": {
+        "anchor_a": 20240130,
+        "anchor_b": 20240402,
+        "span_days": 63
+      },
+      "2_水": {
+        "anchor_a": 20240131,
+        "anchor_b": 20240403,
+        "span_days": 63
+      },
+      "3_木": {
+        "anchor_a": 20240125,
+        "anchor_b": 20240404,
+        "span_days": 70
+      },
+      "4_金": {
+        "anchor_a": 20240126,
+        "anchor_b": 20240405,
+        "span_days": 70
+      },
+      "5_土": {
+        "anchor_a": 20240127,
+        "anchor_b": 20240406,
+        "span_days": 70
+      },
+      "6_日": {
+        "anchor_a": 20240128,
+        "anchor_b": 20240407,
+        "span_days": 70
+      }
+    },
+    "anchor_rule": "境界外の同曜日。NAなら曜日を保って7日刻みで外へ移動"
+  }
+}

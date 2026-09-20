@@ -1,0 +1,58 @@
+# EXP00 execution history
+
+================================================================================
+2026-08-30 18:37:28 | EXP00 | validate | SUCCESS
+command: python3 src/EXP00_run.py --validate
+--------------------------------------------------------------------------------
+stages:
+  - load: アンカー2日を読み込み (0.1s)
+  - validate: 検証14日を抽出し、補間・採点 (0.4s)
+  - artifacts: 検証予測、誤差マップ、metricsを更新 (0.6s)
+results:
+  - combined_nrmse: 0.2737
+  - jan: 0.2748
+  - apr: 0.2726
+duration: 1.0s
+
+================================================================================
+2026-08-30 07:08:43 | EXP00 | submit | SUCCESS
+command: python3 src/EXP00_run.py --submit
+--------------------------------------------------------------------------------
+stages:
+  - predict: 提出58日を補間 (0.7s)
+  - check: 提出形式を検査 (3.4s)
+  - figure: 日次推移図を生成 (3.0s)
+results:
+  - days: 58
+  - check: PASS
+artifacts:
+  - experiments/EXP00/outputs/submission.tsv
+duration: 7.1s
+
+================================================================================
+2026-09-21 00:30:19 | EXP00 | run | SUCCESS
+command: python3 src/EXP00_run.py
+--------------------------------------------------------------------------------
+stages:
+  - validate-load: アンカー2日の読み込み (0.2s, 00:30:35)
+  - validate-days: 検証14日の抽出 (0.5s, 00:30:35)
+  - validate-score: 補間とスコア計算 (0.1s, 00:30:35)
+  - validate-artifacts: 誤差マップと市町別誤差CSVの生成 (0.7s, 00:30:35)
+  - validate-metrics: metrics.jsonを更新 (0.0s, 00:30:36)
+  - submit-load: アンカー2日の読み込み (0.2s, 00:30:36)
+  - submit-write: 提出58日の補間と書き出し (0.3s, 00:30:36)
+  - submit-check: 形式検査 (2.5s, 00:30:37)
+  - submit-figure: 日次推移図 (3.7s, 00:30:39)
+results:
+  - combined: 0.2737
+  - jan: 0.2748
+  - apr: 0.2726
+  - days: 58
+  - size: 12.2MB
+  - check: PASS
+artifacts:
+  - experiments/EXP00/metrics.json
+  - experiments/EXP00/figures/local_error_map.png
+  - experiments/EXP00/outputs/municipality_errors.csv
+  - experiments/EXP00/outputs/submission.tsv
+duration: 23.7s

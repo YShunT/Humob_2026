@@ -1,0 +1,196 @@
+{
+  "experiment": "EXP04",
+  "date": "2026-09-21T00:44+09:00",
+  "status": "評価済み",
+  "compared_to": "EXP03",
+  "results": {
+    "overall": {
+      "n_days": 14,
+      "combined_nrmse": 0.200814,
+      "nrmse_diag": 0.08546,
+      "nrmse_offdiag": 0.316168
+    },
+    "validation": {
+      "jan": {
+        "n_days": 7,
+        "combined_nrmse": 0.205621,
+        "nrmse_diag": 0.090423,
+        "nrmse_offdiag": 0.320819
+      },
+      "apr": {
+        "n_days": 7,
+        "combined_nrmse": 0.196006,
+        "nrmse_diag": 0.080496,
+        "nrmse_offdiag": 0.311517
+      }
+    },
+    "candidates": {
+      "N-F": {
+        "combined_nrmse": 0.201218,
+        "nrmse_offdiag": 0.316977,
+        "jan_combined_nrmse": 0.205988,
+        "apr_combined_nrmse": 0.196449,
+        "hit_sse": 662.77502,
+        "miss_sse": 31.999877,
+        "extra_sse": 257.081047,
+        "hit_pct": 69.629761,
+        "miss_pct": 3.36184,
+        "extra_pct": 27.008399
+      },
+      "N-R": {
+        "combined_nrmse": 0.201029,
+        "nrmse_offdiag": 0.316599,
+        "jan_combined_nrmse": 0.206019,
+        "apr_combined_nrmse": 0.196039,
+        "hit_sse": 671.659865,
+        "miss_sse": 22.237488,
+        "extra_sse": 256.293002,
+        "hit_pct": 70.686875,
+        "miss_pct": 2.340319,
+        "extra_pct": 26.972806
+      },
+      "N-B": {
+        "combined_nrmse": 0.200814,
+        "nrmse_offdiag": 0.316168,
+        "jan_combined_nrmse": 0.205621,
+        "apr_combined_nrmse": 0.196006,
+        "hit_sse": 672.864627,
+        "miss_sse": 19.453909,
+        "extra_sse": 254.985944,
+        "hit_pct": 71.029394,
+        "miss_pct": 2.053607,
+        "extra_pct": 26.917
+      }
+    },
+    "baseline_reproduction_difference": {
+      "combined_nrmse": 0.0,
+      "nrmse_diag": 0.0,
+      "nrmse_offdiag": 0.0
+    },
+    "direction_diagnostics": {
+      "error_correlation": 0.992131,
+      "mean_abs_prediction_difference": 0.025955,
+      "candidate_pair_days": 7350
+    },
+    "fit_diagnostics": [
+      {
+        "model": "stage0-D5",
+        "kind": "D",
+        "fixed": false,
+        "groups": "evac,water,rain",
+        "active": 911,
+        "observations": 253258,
+        "q": 0.000383,
+        "r": 0.105194,
+        "iterations": 200,
+        "converged": false,
+        "objective": 93540.251859,
+        "negative_fraction": 0.125342,
+        "max_state_variance": 0.010883,
+        "seconds": 9.04822
+      },
+      {
+        "model": "stage1-F-total",
+        "kind": "O",
+        "fixed": false,
+        "groups": "evac,water,rain,snow,shelter",
+        "active": 143,
+        "observations": 39754,
+        "q": 0.000284,
+        "r": 0.051926,
+        "iterations": 200,
+        "converged": false,
+        "objective": 1000.19864,
+        "negative_fraction": 0.022796,
+        "max_state_variance": 0.007514,
+        "seconds": 7.631688
+      },
+      {
+        "model": "stage1-F-share",
+        "kind": "r",
+        "fixed": false,
+        "groups": "evac,water,rain,snow,shelter",
+        "active": 525,
+        "observations": 86448,
+        "q": 0.000114,
+        "r": 0.014972,
+        "iterations": 200,
+        "converged": false,
+        "objective": -48186.815741,
+        "negative_fraction": 0.209617,
+        "max_state_variance": 10000.034513,
+        "seconds": 7.038493
+      },
+      {
+        "model": "stage2-R-total",
+        "kind": "O",
+        "fixed": false,
+        "groups": "evac,water,rain,snow,shelter",
+        "active": 148,
+        "observations": 41144,
+        "q": 0.000244,
+        "r": 0.050673,
+        "iterations": 200,
+        "converged": false,
+        "objective": 440.967188,
+        "negative_fraction": 0.024342,
+        "max_state_variance": 0.006584,
+        "seconds": 7.623244
+      },
+      {
+        "model": "stage2-R-share",
+        "kind": "r",
+        "fixed": false,
+        "groups": "evac,water,rain,snow,shelter",
+        "active": 525,
+        "observations": 84547,
+        "q": 0.000119,
+        "r": 0.014804,
+        "iterations": 200,
+        "converged": false,
+        "objective": -47302.105659,
+        "negative_fraction": 0.21363,
+        "max_state_variance": 10000.03621,
+        "seconds": 7.134749
+      }
+    ]
+  },
+  "config": {
+    "diag_groups": [
+      "evac",
+      "water",
+      "rain"
+    ],
+    "off_groups": [
+      "evac",
+      "water",
+      "rain",
+      "snow",
+      "shelter"
+    ],
+    "state_settings": {
+      "em_max_iter": 200,
+      "em_tol": 1e-05,
+      "variance_floor": 1e-08,
+      "weekday_ridge": 1.0,
+      "deviation_ridge": 20.0,
+      "global_ridge": 1.0,
+      "initial_variance": 10000.0,
+      "crossfit_folds": 5,
+      "crossfit_block_days": 28,
+      "inverse_log": "median_expm1",
+      "seed": 2026
+    },
+    "candidates": {
+      "N-F": 0.0,
+      "N-R": 1.0,
+      "N-B": 0.5
+    },
+    "reverse_features": "mirrored origin/destination roles",
+    "catboost": false,
+    "fixed": false,
+    "selected": "N-B",
+    "observed_days": 278,
+    "candidate_pairs": 525
+  }
+}

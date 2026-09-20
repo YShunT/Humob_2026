@@ -1,0 +1,20 @@
+# Python and operating-system generated files
+__pycache__/
+.DS_Store
+*.py[cod]
+.venv/
+
+# Local-only inputs and project instructions
+/data/
+/events/
+/AGENTS.md
+/CLAUDE.md
+/Competition.md
+/src/diagnostics/
+/src/visualization/
+/src/common/humob2026_validator.py
+/experiments/_template/
+
+# Generated experiment artifacts
+/experiments/**/outputs/*.tsv
+/experiments/**/outputs/**/*.tsv

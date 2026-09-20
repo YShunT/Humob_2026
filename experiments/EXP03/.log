@@ -1,0 +1,70 @@
+# EXP03 execution history
+
+================================================================================
+2026-09-07 17:39:57 | EXP03 | validate | SUCCESS
+command: python3 src/EXP03_run.py --validate
+--------------------------------------------------------------------------------
+stages:
+  - load: 配布データ・外部特徴を読み込み、CVを分離 (12.6s)
+  - compare: 状態空間モデルのアブレーション (158.0s)
+  - residual: 内部欠損でCatBoost残差を評価 (160.3s)
+  - evaluate: 最終ODを復元して公式採点 (4.0s)
+  - artifacts: 誤差図、地域誤差、metricsを更新 (1.3s)
+results:
+  - combined_nrmse: 0.2012
+  - nrmse_diag: 0.0855
+  - nrmse_offdiag: 0.3170
+duration: 336.2s
+
+================================================================================
+2026-09-07 18:30:28 | EXP03 | submit | SUCCESS
+command: python3 src/EXP03_run.py --submit
+--------------------------------------------------------------------------------
+stages:
+  - load: 全観測日を読み込み (13.5s)
+  - fit: 採用モデルを全観測日で再学習 (24.0s)
+  - artifacts: 提出TSV、形式検査、日次推移図 (13.1s)
+results:
+  - days: 58
+  - check: PASS
+artifacts:
+  - experiments/EXP03/outputs/submission.tsv
+duration: 50.8s
+
+================================================================================
+2026-09-20 23:30:18 | EXP03 | run | FAILED
+command: python3 src/EXP03_run.py
+--------------------------------------------------------------------------------
+stages:
+  - self-test: 数値実装の不変条件を検査 (0.9s, 23:30:18)
+  - validate-load: 配布データ・外部情報読み込みとCV分離 (6.1s, 23:30:19)
+  - validate-ablation: 対角・非対角の状態空間アブレーション (75.2s, 23:30:25)
+  - validate-residual: 内部欠損ブロックで残差教師生成・CatBoost学習 (FAIL, 23:31:41)
+error: ModuleNotFoundError: No module named 'catboost'
+duration: 82.2s
+
+================================================================================
+2026-09-21 00:32:07 | EXP03 | run | SUCCESS
+command: python3 src/EXP03_run.py
+--------------------------------------------------------------------------------
+stages:
+  - self-test: 数値実装の不変条件を検査 (1.8s, 00:32:07)
+  - validate-load: 配布データ・外部情報読み込みとCV分離 (13.0s, 00:32:09)
+  - validate-ablation: 対角・非対角の状態空間アブレーション (156.4s, 00:32:22)
+  - validate-residual: 内部欠損ブロックで残差教師生成・CatBoost学習 (161.6s, 00:34:59)
+  - validate-score: 最終OD復元・公式評価 (0.1s, 00:37:40)
+  - validate-artifacts: 誤差マップ・市町誤差・比較図 (2.6s, 00:37:40)
+  - submit-load: 全観測日読み込み (14.7s, 00:37:43)
+  - submit-fit: 採用状態空間モデルを全観測日で再学習 (24.2s, 00:37:58)
+  - submit-write: 提出TSV・形式検査・日次推移 (12.9s, 00:38:22)
+results:
+  - combined: 0.2012
+  - diag: 0.0855
+  - off: 0.3170
+  - days: 58
+artifacts:
+  - experiments/EXP03/metrics.json
+  - experiments/EXP03/outputs/fit_diagnostics.csv
+  - experiments/EXP03/figures/
+  - experiments/EXP03/outputs/submission.tsv
+duration: 387.3s

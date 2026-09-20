@@ -1,0 +1,315 @@
+{
+  "experiment": "EXP02",
+  "date": "2026-09-21T00:31+09:00",
+  "status": "評価済み",
+  "compared_to": "EXP01",
+  "results": {
+    "overall": {
+      "n_days": 14,
+      "combined_nrmse": 0.2207,
+      "nrmse_diag": 0.1087,
+      "nrmse_offdiag": 0.3327,
+      "vs_zero": 0.2299
+    },
+    "validation": {
+      "jan": {
+        "n_days": 7,
+        "combined_nrmse": 0.2318,
+        "nrmse_diag": 0.1135,
+        "nrmse_offdiag": 0.3502,
+        "vs_zero": 0.2508
+      },
+      "apr": {
+        "n_days": 7,
+        "combined_nrmse": 0.2096,
+        "nrmse_diag": 0.1039,
+        "nrmse_offdiag": 0.3153,
+        "vs_zero": 0.2104
+      }
+    },
+    "groups": {
+      "weekday": {
+        "n_days": 10,
+        "combined_nrmse": 0.2182,
+        "nrmse_diag": 0.1097,
+        "nrmse_offdiag": 0.3268,
+        "vs_zero": 0.2192
+      },
+      "weekend": {
+        "n_days": 4,
+        "combined_nrmse": 0.2268,
+        "nrmse_diag": 0.1062,
+        "nrmse_offdiag": 0.3474,
+        "vs_zero": 0.2602
+      }
+    },
+    "weekdays": {
+      "0_月": {
+        "n_days": 2,
+        "combined_nrmse": 0.2116,
+        "nrmse_diag": 0.1046,
+        "nrmse_offdiag": 0.3186,
+        "vs_zero": 0.2144
+      },
+      "1_火": {
+        "n_days": 2,
+        "combined_nrmse": 0.216,
+        "nrmse_diag": 0.0998,
+        "nrmse_offdiag": 0.3322,
+        "vs_zero": 0.2144
+      },
+      "2_水": {
+        "n_days": 2,
+        "combined_nrmse": 0.2083,
+        "nrmse_diag": 0.1094,
+        "nrmse_offdiag": 0.3071,
+        "vs_zero": 0.2081
+      },
+      "3_木": {
+        "n_days": 2,
+        "combined_nrmse": 0.2253,
+        "nrmse_diag": 0.1285,
+        "nrmse_offdiag": 0.3221,
+        "vs_zero": 0.2277
+      },
+      "4_金": {
+        "n_days": 2,
+        "combined_nrmse": 0.2301,
+        "nrmse_diag": 0.106,
+        "nrmse_offdiag": 0.3541,
+        "vs_zero": 0.2316
+      },
+      "5_土": {
+        "n_days": 2,
+        "combined_nrmse": 0.235,
+        "nrmse_diag": 0.1045,
+        "nrmse_offdiag": 0.3656,
+        "vs_zero": 0.2629
+      },
+      "6_日": {
+        "n_days": 2,
+        "combined_nrmse": 0.2186,
+        "nrmse_diag": 0.108,
+        "nrmse_offdiag": 0.3293,
+        "vs_zero": 0.2575
+      }
+    },
+    "error_breakdown": {
+      "diagonal": {
+        "hit_pct": 97.021,
+        "miss_pct": 0.822,
+        "extra_pct": 2.158,
+        "observed_pairs_per_day": 381.857,
+        "predicted_pairs_per_day": 441.5
+      },
+      "offdiagonal": {
+        "hit_pct": 63.166,
+        "miss_pct": 3.486,
+        "extra_pct": 33.348,
+        "observed_pairs_per_day": 118.429,
+        "predicted_pairs_per_day": 305.0
+      }
+    },
+    "stage1_calibration": {
+      "valid_days_by_side_weekday": {
+        "A": {
+          "0_月": 11,
+          "1_火": 10,
+          "2_水": 12,
+          "3_木": 9,
+          "4_金": 11,
+          "5_土": 12,
+          "6_日": 10
+        },
+        "B": {
+          "0_月": 11,
+          "1_火": 12,
+          "2_水": 11,
+          "3_木": 12,
+          "4_金": 11,
+          "5_土": 12,
+          "6_日": 12
+        }
+      },
+      "candidate_coverage": 0.9771,
+      "covered_truth_pairs": 1620,
+      "total_truth_pairs": 1658,
+      "mean_probability": {
+        "present_candidates": 0.6984,
+        "absent_candidates": 0.1785
+      },
+      "bins": {
+        "0.00-0.10": {
+          "n_pairs": 1547,
+          "mean_probability": 0.049,
+          "actual_rate": 0.0582
+        },
+        "0.10-0.25": {
+          "n_pairs": 681,
+          "mean_probability": 0.1694,
+          "actual_rate": 0.185
+        },
+        "0.25-0.50": {
+          "n_pairs": 646,
+          "mean_probability": 0.3605,
+          "actual_rate": 0.3916
+        },
+        "0.50-1.00": {
+          "n_pairs": 1396,
+          "mean_probability": 0.8455,
+          "actual_rate": 0.8245
+        }
+      },
+      "support_comparison": {
+        "exp01": {
+          "predicted_pairs_per_day": 155.571,
+          "precision": 0.6253,
+          "recall": 0.8215
+        },
+        "probability_at_0.20": {
+          "predicted_pairs_per_day": 156.071,
+          "precision": 0.6595,
+          "recall": 0.8691
+        }
+      }
+    },
+    "template": {
+      "valid_days": {
+        "A": {
+          "0_月": 11,
+          "1_火": 10,
+          "2_水": 12,
+          "3_木": 9,
+          "4_金": 11,
+          "5_土": 12,
+          "6_日": 10
+        },
+        "B": {
+          "0_月": 11,
+          "1_火": 12,
+          "2_水": 11,
+          "3_木": 12,
+          "4_金": 11,
+          "5_土": 12,
+          "6_日": 12
+        }
+      },
+      "candidate_pairs": {
+        "0_月": 7646,
+        "1_火": 7537,
+        "2_水": 7716,
+        "3_木": 7513,
+        "4_金": 7851,
+        "5_土": 7525,
+        "6_日": 6884
+      }
+    },
+    "candidate_comparison": {
+      "selected": "full_mean",
+      "candidates": {
+        "full_median": {
+          "a_window": "full",
+          "value_statistic": "median",
+          "combined_nrmse": 0.2212,
+          "nrmse_diag": 0.1087,
+          "nrmse_offdiag": 0.3337,
+          "jan_combined_nrmse": 0.2319,
+          "apr_combined_nrmse": 0.2104
+        },
+        "full_mean": {
+          "a_window": "full",
+          "value_statistic": "mean",
+          "combined_nrmse": 0.2207,
+          "nrmse_diag": 0.1087,
+          "nrmse_offdiag": 0.3327,
+          "jan_combined_nrmse": 0.2318,
+          "apr_combined_nrmse": 0.2096
+        },
+        "post_quake_median": {
+          "a_window": "post_quake",
+          "value_statistic": "median",
+          "combined_nrmse": 0.2355,
+          "nrmse_diag": 0.1081,
+          "nrmse_offdiag": 0.3629,
+          "jan_combined_nrmse": 0.2606,
+          "apr_combined_nrmse": 0.2104
+        },
+        "post_quake_mean": {
+          "a_window": "post_quake",
+          "value_statistic": "mean",
+          "combined_nrmse": 0.2363,
+          "nrmse_diag": 0.1082,
+          "nrmse_offdiag": 0.3644,
+          "jan_combined_nrmse": 0.2631,
+          "apr_combined_nrmse": 0.2096
+        }
+      }
+    }
+  },
+  "config": {
+    "method": "weekday binary occurrence probability x selected positive statistic; A-window selected by validation",
+    "validation_periods": {
+      "A": [
+        20231101,
+        20240124
+      ],
+      "B": [
+        20240408,
+        20240630
+      ],
+      "interpolation_bounds": [
+        20240124,
+        20240408
+      ]
+    },
+    "submission_periods": {
+      "A": [
+        20231101,
+        20240131
+      ],
+      "B": [
+        20240401,
+        20240630
+      ],
+      "interpolation_bounds": [
+        20240131,
+        20240401
+      ]
+    },
+    "a_window_candidates": {
+      "full": {
+        "validation": [
+          20231101,
+          20240124
+        ],
+        "submission": [
+          20231101,
+          20240131
+        ]
+      },
+      "post_quake": {
+        "validation": [
+          20240101,
+          20240124
+        ],
+        "submission": [
+          20240101,
+          20240131
+        ]
+      }
+    },
+    "probability": "presence count / valid observed days; NA excluded",
+    "value_statistic_candidates": [
+      "median",
+      "mean"
+    ],
+    "selected_candidate": {
+      "id": "full_mean",
+      "a_window": "full",
+      "value_statistic": "mean"
+    },
+    "selection_metric": "14-day overall combined_nrmse",
+    "row_mass_conservation": "EXP01 origin row total; residual assigned to diagonal",
+    "hyperparameters": null
+  }
+}

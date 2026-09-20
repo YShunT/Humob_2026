@@ -1,0 +1,219 @@
+{
+  "experiment": "EXP03",
+  "date": "2026-09-21T00:37+09:00",
+  "status": "評価済み",
+  "compared_to": "EXP02",
+  "results": {
+    "overall": {
+      "n_days": 14,
+      "combined_nrmse": 0.201218,
+      "nrmse_diag": 0.08546,
+      "nrmse_offdiag": 0.316977
+    },
+    "validation": {
+      "jan": {
+        "rmse_diag": 2.402548,
+        "rmse_off": 0.005659,
+        "nrmse_diag": 0.090423,
+        "nrmse_off": 0.321553,
+        "combined": 0.205988
+      },
+      "apr": {
+        "rmse_diag": 2.138771,
+        "rmse_off": 0.005498,
+        "nrmse_diag": 0.080496,
+        "nrmse_off": 0.312402,
+        "combined": 0.196449
+      }
+    },
+    "diag_candidates": [
+      {
+        "candidate": "D-ref",
+        "groups": "",
+        "fixed": true,
+        "score": 0.119783
+      },
+      {
+        "candidate": "D0",
+        "groups": "",
+        "fixed": false,
+        "score": 0.103113
+      },
+      {
+        "candidate": "D1",
+        "groups": "evac",
+        "fixed": false,
+        "score": 0.090879
+      },
+      {
+        "candidate": "D2",
+        "groups": "water",
+        "fixed": false,
+        "score": 0.102721
+      },
+      {
+        "candidate": "D3",
+        "groups": "rain",
+        "fixed": false,
+        "score": 0.102615
+      },
+      {
+        "candidate": "D4",
+        "groups": "snow",
+        "fixed": false,
+        "score": 0.104317
+      },
+      {
+        "candidate": "D5",
+        "groups": "evac,water,rain",
+        "fixed": false,
+        "score": 0.08546
+      },
+      {
+        "candidate": "D6",
+        "groups": "evac,water,rain,snow",
+        "fixed": false,
+        "score": 0.086457
+      },
+      {
+        "candidate": "D7",
+        "groups": "evac,shelter",
+        "fixed": false,
+        "score": 0.090322
+      },
+      {
+        "candidate": "D8",
+        "groups": "evac,water,rain,snow,shelter",
+        "fixed": false,
+        "score": 0.086324
+      },
+      {
+        "candidate": "D-H",
+        "groups": "evac,water,rain,snow,shelter",
+        "fixed": false,
+        "score": 0.198457
+      }
+    ],
+    "off_candidates": [
+      {
+        "candidate": "N-ref",
+        "groups": "",
+        "fixed": true,
+        "score": 0.327761
+      },
+      {
+        "candidate": "N0",
+        "groups": "",
+        "fixed": false,
+        "score": 0.321949
+      },
+      {
+        "candidate": "N1",
+        "groups": "evac",
+        "fixed": false,
+        "score": 0.317542
+      },
+      {
+        "candidate": "N2",
+        "groups": "water",
+        "fixed": false,
+        "score": 0.322459
+      },
+      {
+        "candidate": "N3",
+        "groups": "rain",
+        "fixed": false,
+        "score": 0.321979
+      },
+      {
+        "candidate": "N4",
+        "groups": "snow",
+        "fixed": false,
+        "score": 0.322081
+      },
+      {
+        "candidate": "N5",
+        "groups": "evac",
+        "fixed": false,
+        "score": 0.317542
+      },
+      {
+        "candidate": "N6",
+        "groups": "evac,water,rain,snow",
+        "fixed": false,
+        "score": 0.317372
+      },
+      {
+        "candidate": "N7",
+        "groups": "evac,shelter",
+        "fixed": false,
+        "score": 0.317159
+      },
+      {
+        "candidate": "N8",
+        "groups": "evac,water,rain,snow,shelter",
+        "fixed": false,
+        "score": 0.316977
+      },
+      {
+        "candidate": "N-H",
+        "groups": "evac,water,rain,snow,shelter",
+        "fixed": false,
+        "score": 0.317602
+      }
+    ]
+  },
+  "config": {
+    "settings": {
+      "em_max_iter": 200,
+      "em_tol": 1e-05,
+      "variance_floor": 1e-08,
+      "weekday_ridge": 1.0,
+      "deviation_ridge": 20.0,
+      "global_ridge": 1.0,
+      "initial_variance": 10000.0,
+      "crossfit_folds": 5,
+      "crossfit_block_days": 28,
+      "inverse_log": "median_expm1",
+      "seed": 2026
+    },
+    "catboost": {
+      "iterations": 300,
+      "depth": 5,
+      "learning_rate": 0.04,
+      "l2_leaf_reg": 10,
+      "loss_function": "RMSE",
+      "random_seed": 2026,
+      "thread_count": 4,
+      "verbose": false,
+      "allow_writing_files": false,
+      "task_type": "CPU"
+    },
+    "selected": {
+      "diag": {
+        "base": "D5",
+        "groups": [
+          "evac",
+          "water",
+          "rain"
+        ],
+        "fixed": false,
+        "hybrid": false
+      },
+      "off": {
+        "base": "N8",
+        "groups": [
+          "evac",
+          "water",
+          "rain",
+          "snow",
+          "shelter"
+        ],
+        "fixed": false,
+        "hybrid": false
+      }
+    },
+    "observed_days": 278,
+    "candidate_pairs": 525
+  }
+}

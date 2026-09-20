@@ -1,0 +1,47 @@
+{
+  "experiment": "EXP00",
+  "date": "2026-09-21T00:30+09:00",
+  "status": "基準",
+  "compared_to": null,
+  "results": {
+    "overall": {
+      "n_days": 14,
+      "combined_nrmse": 0.2737,
+      "nrmse_diag": 0.1171,
+      "nrmse_offdiag": 0.4303,
+      "vs_zero": 0.2851
+    },
+    "validation": {
+      "jan": {
+        "n_days": 7,
+        "combined_nrmse": 0.2748,
+        "nrmse_diag": 0.1126,
+        "nrmse_offdiag": 0.437,
+        "vs_zero": 0.2973
+      },
+      "apr": {
+        "n_days": 7,
+        "combined_nrmse": 0.2726,
+        "nrmse_diag": 0.1217,
+        "nrmse_offdiag": 0.4236,
+        "vs_zero": 0.2737
+      }
+    }
+  },
+  "config": {
+    "method": "per-pair linear interpolation",
+    "anchor_a": 20240122,
+    "anchor_b": 20240409,
+    "anchor_rule": "検証窓を外側から挟む直近の観測日（目標 1/24・4/8 は NA）",
+    "val_windows": {
+      "jan": [
+        20240125,
+        20240131
+      ],
+      "apr": [
+        20240401,
+        20240407
+      ]
+    }
+  }
+}
