@@ -121,7 +121,7 @@ JSON・集計CSVの保存をまとめる。実験間で別実装を持たない�
 |---|---|
 | `validation_days()` | 検証14日を `YYYYMMDD` 整数のリストで |
 | `error_surfaces(predictions, truths, days)` | 誤差を diagonal / off-origin / off-destination の3つの2次元面へ集約 |
-| `save_local_error_map(predictions, truths, out, experiment="model")` | 上の3面を1枚のPNGにして保存し、保存先 Path を返す |
+| `save_local_error_map(predictions, truths, out, experiment="model", language="ja")` | 上の3面を1枚のPNGにして保存し、保存先 Path を返す。`language="en"`で英語表記 |
 
 ```python
 from common.experiment_io import RAW_TSV, read_od_days
@@ -202,6 +202,9 @@ python3 src/common/pred_dist.py EXP00
 ```
 
 `tsv` / `out` は既定パスを上書きしたいとき（テストなど）だけ渡す。通常は実験IDだけでよい。
+
+`language="en"`を渡すとタイトル・軸・凡例を英語にする（既定は`"ja"`）。
+EXP04は英語表記を使用する。CVの予測線も含める場合は、`validation_predictions`に検証予測辞書を渡す。
 
 ---
 

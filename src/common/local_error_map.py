@@ -138,12 +138,14 @@ def _grid_to_lat(y):
     return LAT0 + (np.asarray(y, dtype=float) - 1) * DLAT
 
 
-def save_local_error_map(predictions, truths, out, experiment="model"):
+def save_local_error_map(predictions, truths, out, experiment="model", language="ja"):
     """14日統合の空間誤差マップ3枚を保存する。
 
     ``predictions`` と ``truths`` はどちらも ``{YYYYMMDD: nested_od}``。
-    戻り値は保存先Path。
+    ``language`` は ``ja`` または ``en``。戻り値は保存先Path。
     """
+    if language not in ("ja", "en"):
+        raise ValueError("language must be 'ja' or 'en'")
     surfaces = error_surfaces(predictions, truths, validation_days())
 
     panels = [
@@ -151,6 +153,12 @@ def save_local_error_map(predictions, truths, out, experiment="model"):
         ("off_origin", "出発点における誤差", "各セルを出発する人流のNRMSE"),
         ("off_destination", "到着点における誤差", "各セルへ到着する人流のNRMSE"),
     ]
+    if language == "en":
+        panels = [
+            ("diagonal", "Within-cell error", "Diagonal NRMSE"),
+            ("off_origin", "Origin-wise error", "Off-diagonal NRMSE"),
+            ("off_destination", "Destination-wise error", "Off-diagonal NRMSE"),
+        ]
     lon_edges = _grid_to_lon(np.arange(EVAL_X[0] - 0.5, EVAL_X[1] + 1.0))
     lat_edges = _grid_to_lat(np.arange(EVAL_Y[0] - 0.5, EVAL_Y[1] + 1.0))
     coast = _load_coast_rings()
@@ -172,14 +180,15 @@ def save_local_error_map(predictions, truths, out, experiment="model"):
         ax.set_ylim(lat_edges[0], lat_edges[-1])
         ax.set_aspect(1.0 / np.cos(np.radians((LAT0 + LAT1) / 2)))
         ax.set_title(f"{title}\n{subtitle}")
-        ax.set_xlabel("経度")
-        ax.set_ylabel("緯度")
+        ax.set_xlabel("Longitude" if language == "en" else "経度")
+        ax.set_ylabel("Latitude" if language == "en" else "緯度")
         ax.grid(color="#9ca3af", alpha=0.18, linewidth=0.35)
         cbar = fig.colorbar(mesh, ax=ax, shrink=0.82, pad=0.02)
-        cbar.set_label("NRMSE（濃い赤ほど誤差が大きい）")
+        cbar.set_label("NRMSE" if language == "en" else "NRMSE（濃い赤ほど誤差が大きい）")
 
     fig.suptitle(
-        f"{experiment}_CV期間における空間誤差分布",
+        (f"{experiment} - Spatial Validation Errors (14 Days)" if language == "en"
+         else f"{experiment}_CV期間における空間誤差分布"),
         fontsize=15,
     )
     out = Path(out)

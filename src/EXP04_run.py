@@ -227,7 +227,8 @@ def validate(log=None):
                                      direction_diagnostics=direction, fit_diagnostics=fits))
         write_metrics(EXP / "metrics.json", metadata)
         write_municipality_errors(predictions, data.truth, "EXP04")
-        save_local_error_map(predictions, data.truth, FIG / "local_error_map.png", experiment="EXP04")
+        save_local_error_map(predictions, data.truth, FIG / "local_error_map.png",
+                             experiment="EXP04", language="en")
         candidate_plot(results)
         log.result(selected=selected, **results[selected]["overall"])
         log.note("→ experiments/EXP04/metrics.json")
@@ -272,7 +273,7 @@ def submit(validation_predictions, log=None):
         else:
             print("[check] official validator is not bundled; internal validation passed",
                   flush=True)
-        save_pred_dist("EXP04", validation_predictions=validation_predictions)
+        save_pred_dist("EXP04", validation_predictions=validation_predictions, language="en")
         log.result(selected=metadata["config"]["selected"], days=len(predictions),
                    validator=validator_status)
         log.note("→ experiments/EXP04/outputs/submission.tsv")

@@ -127,8 +127,10 @@ def _span(ax, d0, d1, color, label=None):
 
 
 def save_pred_dist(exp_id, tsv=None, out=None, predictions=None,
-                   validation_predictions=None):
-    """予測の日次推移を描く。予測辞書を渡せば中間TSVは不要。"""
+                   validation_predictions=None, language="ja"):
+    """予測の日次推移を描く。``language`` は ``ja`` または ``en``。"""
+    if language not in ("ja", "en"):
+        raise ValueError("language must be 'ja' or 'en'")
     tsv = Path(tsv) if tsv else submission_path(exp_id)
     out = Path(out) if out else figure_path(exp_id)
     if predictions is None and not tsv.exists():
@@ -166,6 +168,11 @@ def save_pred_dist(exp_id, tsv=None, out=None, predictions=None,
         (axes[0], "diag", "対\n角\n成\n分"),
         (axes[1], "off", "非\n対\n角\n成\n分"),
     ]
+    if language == "en":
+        panels = [
+            (axes[0], "diag", "Diagonal flow\n(normalized total)"),
+            (axes[1], "off", "Off-diagonal flow\n(normalized total)"),
+        ]
 
     for ax, key, ylabel in panels:
         _span(ax, *TEST_SPAN, TEST_COLOR)
@@ -181,22 +188,29 @@ def save_pred_dist(exp_id, tsv=None, out=None, predictions=None,
         lo, hi = min(v), max(v)
         pad = max((hi - lo) * 0.15, sum(v) / len(v) * 0.004)
         ax.set_ylim(lo - pad, hi + pad)
-        ax.set_ylabel(ylabel, rotation=0, va="center", ha="right",
-                      linespacing=1.1, labelpad=12)
+        if language == "en":
+            ax.set_ylabel(ylabel, labelpad=10)
+        else:
+            ax.set_ylabel(ylabel, rotation=0, va="center", ha="right",
+                          linespacing=1.1, labelpad=12)
         ax.grid(alpha=0.3)
 
     axes[0].set_xlim(days[0], days[-1])
     axes[0].xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.MO))
     axes[0].xaxis.set_major_formatter(mdates.DateFormatter("%m/%d"))
-    axes[0].set_title(f"{exp_id} - 評価グリッド内の日次推移", fontsize=13)
+    labels = ("Predicted", "Observed", "Validation period", "Test period", "Date (2024)") \
+        if language == "en" else ("予測", "正解（配布データ）", "CV期間", "テスト期間", "日付")
+    title = (f"{exp_id} - Daily Flow Totals within the Evaluation Area" if language == "en"
+             else f"{exp_id} - 評価グリッド内の日次推移")
+    axes[0].set_title(title, fontsize=13)
     axes[0].legend(handles=[
-        plt.Line2D([0], [0], marker="o", color=PRED_COLOR, lw=1.6, ms=3.5, label="予測"),
+        plt.Line2D([0], [0], marker="o", color=PRED_COLOR, lw=1.6, ms=3.5, label=labels[0]),
         plt.Line2D([0], [0], marker="o", color="black", lw=1.4, ms=3.0,
-                   label="正解（配布データ）"),
-        Patch(facecolor=CV_COLOR, label="CV期間"),
-        Patch(facecolor=TEST_COLOR, label="テスト期間"),
+                   label=labels[1]),
+        Patch(facecolor=CV_COLOR, label=labels[2]),
+        Patch(facecolor=TEST_COLOR, label=labels[3]),
     ], fontsize=9, loc="best", framealpha=0.9)
-    axes[1].set_xlabel("日付")
+    axes[1].set_xlabel(labels[4])
 
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.tight_layout()
