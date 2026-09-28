@@ -38,7 +38,7 @@ Combined NRMSEは、同一セル内の移動量（diagonal）とセル間の移�
 │   ├── EXP00_run.py ... EXP04_run.py  # 学習・検証・提出生成
 │   ├── plot_score_history.py          # スコア推移図の生成
 │   ├── common/                        # 公式指標、提出検査、共通評価（READMEあり）
-│   └── preprocessing/                 # 外部データの前処理（READMEあり）
+│   └── preprocessing/                 # 外部データの前処理・予測TSV出力（READMEあり）
 ├── experiments/
 │   ├── README.md                       # 記録構成、metrics・log・CSVの仕様
 │   ├── EXP00/ ... EXP04/              # 実験計画、結果、表、図
@@ -87,8 +87,19 @@ python3 src/EXP04_run.py
 各スクリプトはローカル検証から提出物生成・形式検査までを一度に行う。主催者配布の公式validatorは
 再配布せず、ローカルの`src/common/humob2026_validator.py`に置いた場合だけ提出生成時に追加実行する。
 
-再生成できる検証予測TSVや、`metrics.json`と重複する候補別・日別CSVは保存しない。
+通常実行では、再生成できる検証予測TSVや、`metrics.json`と重複する候補別・日別CSVは保存しない。
 CSVはレポートで直接使う地域別誤差や収束診断など、集計結果として意味があるものに限定する。
+
+EXP04のローカル検証予測が必要な場合は、次を別途実行する。
+
+```bash
+python3 src/preprocessing/exp04_validation_tsv.py
+```
+
+CV14日を同時に除外して再学習し、`experiments/EXP04/outputs/validation_jan.tsv`
+（1/25〜1/31）と`validation_apr.tsv`（4/1〜4/7）を生成する。
+既存スコアの再現とTSVの形式を確認し、既存の提出TSV・metrics・図は変更しない。
+形式・範囲・入力の詳細は[前処理README](src/preprocessing/README.md)を参照。
 
 ## 実験一覧
 | ID | 日付 | 概要 | 比較元 | 統合 | jan | Δjan | apr | Δapr | 判定 |

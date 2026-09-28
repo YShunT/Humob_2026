@@ -1,13 +1,15 @@
-# src/preprocessing — 外部データの前処理
+# src/preprocessing — 外部データの前処理・予測TSVの出力
 
 公開資料、地理データ、気象データを、実験コードから読み込めるCSVへ変換する。
-このディレクトリは**入力データを作る処理**だけを持ち、予測モデルやスコア計算は置かない。
+基本は**入力データを作る処理**を置く。ローカル予測TSVの出力スクリプトもここに置くが、
+予測モデルやスコアの独自実装は持たず、実験コードと共通処理を呼び出す。
 実験共通の評価処理は [`src/common/`](../common/README.md)、予測処理は
 `src/<ID>_run.py` が担当する。
 
 `data/` と `events/` は公開リポジトリに含まれない。各スクリプトは必要な原本がローカルの
 所定位置にあることを前提とし、データのダウンロードは行わない。`data/raw/` 以下は
-**参照専用**であり、変換結果は必ず `data/processed/` または `figures/` に保存する。
+**参照専用**であり、前処理結果は `data/processed/` または `figures/`、
+実験の予測TSVは `experiments/<ID>/outputs/` に保存する。
 
 | モジュール | 役割 | 主な出力 |
 |---|---|---|
@@ -18,6 +20,7 @@
 | [`water_outage_rate.py`](water_outage_rate.py) | 断水戸数を世帯数で割って市町別断水率を作る | `断水率/市町別断水率.csv` |
 | [`shelter_features.py`](shelter_features.py) | 施設単位の避難所情報を評価セル単位に集計する | `避難所/避難所_セル別集計.csv` |
 | [`weather_csv.py`](weather_csv.py) | 気象庁CSVを1日×1観測所の縦長形式へ変換する | `weather/weather.csv` |
+| [`exp04_validation_tsv.py`](exp04_validation_tsv.py) | EXP04の採用モデルでCV14日を再予測し、月別TSVへ保存 | `experiments/EXP04/outputs/validation_jan.tsv`, `validation_apr.tsv` |
 
 ---
 
@@ -244,6 +247,53 @@ CSVには元の人数、人口、人口1万人当たり人数、開設数、広�
 ```bash
 python3 src/preprocessing/weather_csv.py
 ```
+
+---
+
+## exp04_validation_tsv.py — EXP04のローカル検証予測を月別に出力
+
+```bash
+python3 src/preprocessing/exp04_validation_tsv.py
+```
+
+**入力**
+
+- `experiments/EXP03/metrics.json`: 基盤モデルの設定確認
+- `experiments/EXP04/metrics.json`: 採用モデル・設定・照合用の既存スコア
+- `data/raw/humob2026-dataset.tsv`: 配布OD（読み取り専用）
+- `src/EXP03_run.py`の`PATHS`に定義されたセル対応・避難者率・断水率・避難所・気象CSV
+
+**出力**
+
+| ファイル（`experiments/EXP04/outputs/`以下） | 対象日 | 行数 |
+|---|---|---:|
+| `validation_jan.tsv` | 2024-01-25〜2024-01-31 | 7 |
+| `validation_apr.tsv` | 2024-04-01〜2024-04-07 | 7 |
+
+両窓14日を**同時に学習から除外**し、EXP04の採用設定で5モデルを再学習する。
+月別に別々のモデルを学習するのではなく、同じ検証予測を保存時だけ分割する。
+CV正解はスコアの照合だけに使い、OD候補・特徴の前処理・配分の補完・評価外の曜日平均にも含めない。
+現在の採用候補は`N-B`（出発側・到着側の予測を1:1で結合）で、スクリプトは
+`metrics.json`の`config.selected`を読み、候補の再選択は行わない。
+
+TSVは配布・提出データと同じ**ヘッダーなし2列**で、1行が1日を表す。
+第1列は`YYYYMMDD`、第2列は`{origin: {destination: value}}`形式のPython辞書文字列。
+タブで区切り、UTF-8・日付昇順で保存する。値は配布データの尺度のままで、実人数に換算しない。
+読み込みには`common.experiment_io.read_od_days`を使える。
+
+空間範囲も既存の提出TSVに合わせる。評価内は状態空間モデルの予測を使い、
+少なくとも片端が評価外のODは、CVを除く震災後の学習データの曜日平均で補完する。
+全域総量を固定する追加補正は行わない。採点するのは両端が評価内のODだけである。
+
+保存前に、全体・1月・4月それぞれのCombined NRMSE・対角NRMSE・非対角NRMSEを、
+既存metricsの保存精度（小数6桁）で照合する。一時保存した2ファイルについて、
+日付集合・セルID・有限非負値・保存前後のOD値・再読込後のスコアを検査し、
+両方が通った後で出力先へ置き換える。設定・入力件数・スコアが再現しない場合は停止する。
+
+本スクリプトは`metrics.json`、`.log`、既存の図、`submission.tsv`を更新しない。
+再実行すると上記2つの検証TSVだけを上書きする。通常の`EXP04_run.py`には
+検証TSVの保存を追加していない。これらはローカル検証用であり、
+2〜3月58日を要求する公式提出validatorの対象ではない（共通の形式検査を使用する）。
 
 ---
 
