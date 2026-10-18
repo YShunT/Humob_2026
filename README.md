@@ -35,20 +35,6 @@ Combined NRMSE は、同じセル内の移動量（対角）とセル間の移�
 - 非対角の外部特徴は、避難者率・断水率・降水量・積雪・避難所です。
 - 詳しくは [`src/README.md`](src/README.md) を参照してください。
 
-## 動作環境
-
-| 項目 | 要件 | 動作確認した環境 |
-|---|---|---|
-| OS | macOS / Linux（Windows は未確認） | macOS 26.4.1（Apple M5、arm64） |
-| Python | **3.9 以上** | 3.9.6 |
-| ライブラリ | numpy・scipy・pandas（[`requirements.txt`](requirements.txt)） | numpy 2.0.2、scipy 1.13.1、pandas 2.3.3 |
-| メモリ | 1 GB 程度 | 実行時の最大使用量 約0.6 GB |
-| GPU | 不要 | — |
-| 実行時間 | — | 検証 約50秒、提出物生成 約55秒 |
-
-- 主催者配布の公式validator（`humob2026_validator.py`）は任意です。置いた場合だけ、提出物生成時に形式検査を行います。
-- 対角の予測値は、実行するプロセスによって最下位桁（相対 1e-11 程度）が変わることがあります。スコアは小数6桁まで変わりません（検証は [experiments_final/report.md](experiments_final/report.md)）。
-
 ## セットアップ
 
 ```bash
@@ -101,7 +87,7 @@ python3 src/main.py --check [PATH]    # 既存の提出ファイルを公式vali
 | `outputs/submission.tsv` | `--submit` | 提出ファイル（58日分。git 管理外） |
 | `metrics.json` | `--validate` | 検証スコア（14日・1月・4月）、5成分の収束診断、設定 |
 | `outputs/validation_{jan,apr}.tsv` | `--validate` | CV期間の予測（git 管理外） |
-| `.log` | `--validate`・`--submit` | 実行ごとの stage・所要時間・結果（追記のみ） |
+| `.log` | `--validate`・`--submit` | 実行ごとの stage・所要時間・結果（追記のみ。git 管理外） |
 
 ## ディレクトリ構成
 
@@ -118,11 +104,10 @@ python3 src/main.py --check [PATH]    # 既存の提出ファイルを公式vali
 │   ├── evaluation/              公式指標・提出形式の検査
 │   └── utils/                   OD TSV の入出力・実行ログ
 ├── experiments_final/           最終モデルの実行記録
-│   ├── strategy.md              事前の狙いと合格条件
-│   ├── report.md                結果と再現確認
+│   ├── report.md                最終モデルで何をして何が分かったか（考察・再現確認）
 │   ├── metrics.json             検証スコアの数値
-│   ├── .log                     実行ログ
-│   └── figures/                 図
+│   ├── .log                     実行ログ（git 管理外）
+│   └── figures/                 スコア推移・セル別誤差・日次推移の図
 └── figures/                     EDA の図
 ```
 

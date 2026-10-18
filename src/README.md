@@ -27,14 +27,14 @@ EM で交互に推定する（最大200回）。状態は地震の発生日（20
 
 ```bash
 python3 src/main.py --validate        # CV14日の検証。metrics.json と CV予測TSV を保存（約50秒）
-python3 src/main.py --submit          # テスト58日の提出TSVを生成し、公式validatorで検査（約60秒）
+python3 src/main.py --submit          # テスト58日の提出TSVを生成し、公式validatorで検査（約55秒）
 python3 src/main.py --inspect         # 設定と学習データの概要を表示するだけ（ファイルを書かない）
 python3 src/main.py --check [PATH]    # 既存の提出TSVを公式validatorで検査
 ```
 
 - モードは必ず1つ指定する（引数なしや複数指定はエラーになる）。
 - 出力はすべて `experiments_final/` に書く。
-- `.log` には1実行1ブロックで追記する（失敗時は FAIL を残す）。
+- `.log` には1実行1ブロックで追記する（失敗時は FAIL を残す）。`.log` と `outputs/` のTSVは git 管理外。
 
 ### 必要なもの
 
@@ -158,6 +158,7 @@ data/processed/*.csv ─────────────► dataset/external
   - パスとハイパーパラメータ：`config.py`
   - JSON や md に写さない。
 - **入出力パスは引数で変えない。** 変えるときは `config.py` を直す。
+- **サブディレクトリに `__init__.py` は置かない。** 名前空間パッケージとして import するため、`utils`・`models`・`dataset` などと同じ名前のパッケージを環境にインストールすると、そちらが優先されて import に失敗する。
 - **`data/raw/` は読み取り専用。**
 - **CV14日は独立したテストではない。** EXP00〜EXP04 でモデルの選択に繰り返し使った期間である。
 - **対角の予測値は、実行するプロセスによって最下位桁が変わることがある。** 計算内容は EXP04 と同一だが（同じプロセス内ではビット単位で一致）、別プロセスで実行すると相対で約 1e-11 の差が出る。スコアは小数6桁まで一致し、非対角はビット単位で一致する。検証の詳細は [experiments_final/report.md](../experiments_final/report.md)。

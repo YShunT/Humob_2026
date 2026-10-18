@@ -9,8 +9,8 @@ __pycache__/
 /CLAUDE.md
 /Competition.md
 /src/evaluation/humob2026_validator.py
-/experiments/_template/
 
 /experiments_final/outputs/*.tsv
+/experiments_final/.log
 /_archive/
 /experiments/
