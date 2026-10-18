@@ -1,0 +1,126 @@
+{
+  "experiment": "FINAL",
+  "date": "2026-10-18T21:42+09:00",
+  "status": "評価済み",
+  "compared_to": "EXP04",
+  "results": {
+    "overall": {
+      "n_days": 14,
+      "combined_nrmse": 0.200814,
+      "nrmse_diag": 0.08546,
+      "nrmse_offdiag": 0.316168
+    },
+    "validation": {
+      "jan": {
+        "n_days": 7,
+        "combined_nrmse": 0.205621,
+        "nrmse_diag": 0.090423,
+        "nrmse_offdiag": 0.320819
+      },
+      "apr": {
+        "n_days": 7,
+        "combined_nrmse": 0.196006,
+        "nrmse_diag": 0.080496,
+        "nrmse_offdiag": 0.311517
+      }
+    },
+    "fit_diagnostics": [
+      {
+        "model": "D5",
+        "active": 911,
+        "observations": 253258,
+        "q": 0.000383,
+        "r": 0.105194,
+        "iterations": 200,
+        "converged": false,
+        "objective": 93540.251859,
+        "negative_fraction": 0.125342,
+        "max_state_variance": 0.010883,
+        "seconds": 9.302862
+      },
+      {
+        "model": "F-total",
+        "active": 143,
+        "observations": 39754,
+        "q": 0.000284,
+        "r": 0.051926,
+        "iterations": 200,
+        "converged": false,
+        "objective": 1000.19864,
+        "negative_fraction": 0.022796,
+        "max_state_variance": 0.007514,
+        "seconds": 7.856235
+      },
+      {
+        "model": "F-share",
+        "active": 525,
+        "observations": 86448,
+        "q": 0.000114,
+        "r": 0.014972,
+        "iterations": 200,
+        "converged": false,
+        "objective": -48186.815741,
+        "negative_fraction": 0.209617,
+        "max_state_variance": 10000.034513,
+        "seconds": 6.054982
+      },
+      {
+        "model": "R-total",
+        "active": 148,
+        "observations": 41144,
+        "q": 0.000244,
+        "r": 0.050673,
+        "iterations": 200,
+        "converged": false,
+        "objective": 440.967188,
+        "negative_fraction": 0.024342,
+        "max_state_variance": 0.006584,
+        "seconds": 7.766708
+      },
+      {
+        "model": "R-share",
+        "active": 525,
+        "observations": 84547,
+        "q": 0.000119,
+        "r": 0.014804,
+        "iterations": 200,
+        "converged": false,
+        "objective": -47302.105659,
+        "negative_fraction": 0.21363,
+        "max_state_variance": 10000.03621,
+        "seconds": 5.860916
+      }
+    ]
+  },
+  "config": {
+    "source_experiment": "EXP04",
+    "candidate": "N-B",
+    "diagonal_groups": [
+      "evac",
+      "water",
+      "rain"
+    ],
+    "offdiagonal_groups": [
+      "evac",
+      "water",
+      "rain",
+      "snow",
+      "shelter"
+    ],
+    "incoming_weight": 0.5,
+    "em": {
+      "max_iter": 200,
+      "tol": 1e-05,
+      "variance_floor": 1e-08,
+      "initial_variance": 10000.0,
+      "initial_q_ratio": 0.03
+    },
+    "ridge": {
+      "weekday": 1.0,
+      "deviation": 20.0,
+      "global": 1.0
+    },
+    "observed_days": 278,
+    "candidate_pairs": 525
+  }
+}
